@@ -50,7 +50,7 @@ cp -rf README.html $KEYCLOAK_NAME/
 
 echo "adding themes"
 
-docker run --rm -v "$PWD/alfresco:/tmp" alfresco/alfresco-keycloak-theme:$THEME_VERSION sh -c "rm -rf /tmp/* && cp -rf /alfresco/* /tmp/"
+docker run --rm -v "$PWD/alfresco:/tmp" alfresco/alfresco-identity-service-theme:$THEME_VERSION sh -c "rm -rf /tmp/* && cp -rf /alfresco/* /tmp/"
 cp -rf alfresco $KEYCLOAK_NAME/themes/
 
 # unix settings

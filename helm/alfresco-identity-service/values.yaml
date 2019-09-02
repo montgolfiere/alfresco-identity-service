@@ -68,7 +68,7 @@ keycloak:
       port: 80
     extraInitContainers: |
       - name: theme-provider
-        image: alfresco/alfresco-keycloak-theme:0.1
+        image: alfresco/alfresco-identity-service-theme:0.1
         imagePullPolicy: Always
         command:
           - sh
