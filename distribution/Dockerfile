@@ -1,4 +1,4 @@
-FROM quay.io/alfresco/alfresco-base-java:8
+FROM quay.io/alfresco/alfresco-base-java:11
 LABEL version="1.0"
 LABEL maintainer="Platform Services Team"
 
