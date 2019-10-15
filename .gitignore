@@ -38,3 +38,5 @@ requirements.lock
 #Helm project files
 charts/
 
+distribution
+secrets.yaml
