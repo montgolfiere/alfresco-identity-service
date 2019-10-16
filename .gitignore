@@ -40,3 +40,4 @@ charts/
 
 distribution
 secrets.yaml
+ingressvalues.yaml
