@@ -58,6 +58,7 @@ realm:
           - "/admin"
           - "/testgroup"
 
+# https://github.com/codecentric/helm-charts/blob/6a2c0275d35d2d13c5a293ce0950241ba423be75/charts/keycloak/values.yaml
 keycloak:  
   rbac:
     create: false
@@ -68,6 +69,10 @@ keycloak:
       pullPolicy: Always
       pullSecrets:
         - quay-registry-secret
+    extraPorts: | 
+       - name: http
+         containerPort: 8443
+         protocol: TCP
     username: admin
     password: admin
     service:

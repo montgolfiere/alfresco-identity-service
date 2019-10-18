@@ -5,35 +5,39 @@ VERSION				:= $(shell sed -n 's/^version: //p' Chart.yaml)
 NAME				:= alfresco-identity-service
 ROUTE53_HOSTNAME	:= pbrodner.ps.dev.alfresco.me
 RANDOM 			 	:= $(shell openssl rand 200 | LC_CTYPE=C tr -dc "[:lower:]" | head -c 5)
+ELB_CERTIFICATE_ARN	:= "TBD"
 
-build: clean
+help: 
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+build: clean ## build a clean chart
 	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
 	helm repo add alfresco-stable https://kubernetes-charts.alfresco.com/stable
 	rm -rf requirements.lock
 	helm dependency build
 	helm lint
 
-deploy: 	
+deploy: ## deploy chart	
 	helm upgrade --install --namespace $(NAMESPACE)  ${NAME} . 
 
-secrets:
+secrets: ## upload secrets
 	@[ -f secrets.yaml ] && kubectl create -f secrets.yaml --namespace $(NAMESPACE)	
 
-ingress:
+ingress: ## install ingress
 	./custom-ingress.sh ingressvalues.yaml && \
 	helm install stable/nginx-ingress --version=0.14.0 -f ingressvalues.yaml --namespace $(NAMESPACE)	
 
-infrastructure:	
+infrastructure:	 ## install infrastructures
 	helm install alfresco-stable/alfresco-infrastructure \
     --set alfresco-infrastructure.activemq.enabled=false \
     --set alfresco-infrastructure.alfresco-identity-service.enabled=false \
     --set alfresco-infrastructure.nginx-ingress.enabled=false \
     --namespace=$(NAMESPACE)
 
-clean:
+clean:	## clean chart
 	rm -rf charts
 
-delete:
+delete: ## delete deployment
 	@helm delete --purge `helm ls --namespace $(NAMESPACE) -q`
 
 # proxy a service
