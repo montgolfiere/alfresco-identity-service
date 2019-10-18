@@ -1,0 +1,6 @@
+embed-server --server-config=standalone-ha.xml --std-out=echo
+run-batch --file=/opt/alfresco-identity-service/scripts/cli/loglevel.cli
+run-batch --file=/opt/alfresco-identity-service/scripts/cli/proxy.cli
+run-batch --file=/opt/alfresco-identity-service/scripts/cli/hostname.cli
+run-batch --file=/opt/alfresco-identity-service/scripts/cli/theme.cli
+stop-embedded-server

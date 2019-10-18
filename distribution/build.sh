@@ -8,6 +8,7 @@ CHART_DIR="${currentDir}/../helm/alfresco-identity-service"
 
 HELM_REPO_NAME="alfresco-incubator"
 KEYCLOAK_NAME=keycloak-$KEYCLOAK_VERSION
+IS_ZIP_DISTRO="${ZIP_DISTRO_CONFIG:-false}"
 KEYCLOAK_DISTRO=$KEYCLOAK_NAME.zip
 DISTRIBUTION_NAME=alfresco-identity-service-$IDENTITY_VERSION
 
@@ -21,6 +22,7 @@ curl --silent --show-error -O https://downloads.jboss.org/keycloak/$KEYCLOAK_VER
 echo "unzipping Keycloak"
 unzip -oq $KEYCLOAK_DISTRO
 
+if [ "$IS_ZIP_DISTRO" = true ]; then
 echo "generating realm from template"
 mkdir -p $KEYCLOAK_NAME/realm
 
@@ -64,6 +66,7 @@ echo -e "set \"JAVA_OPTS=%JAVA_OPTS% -Dkeycloak.import=%~dp0..\\\realm\\\alfresc
 
 echo '# Alfresco realm import ' >> $KEYCLOAK_NAME/bin/standalone.conf.ps1
 echo "\$JAVA_OPTS += \"-Dkeycloak.import=\$pwd\\\..\\\realm\\\alfresco-realm.json\"" >> $KEYCLOAK_NAME/bin/standalone.conf.ps1
+fi
 
 rm -f $KEYCLOAK_NAME/themes/keycloak/common/resources/node_modules/rcue/dist/img/git-Logo.svg
 rm -rf $DISTRIBUTION_NAME
