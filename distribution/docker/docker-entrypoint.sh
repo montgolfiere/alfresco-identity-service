@@ -170,8 +170,8 @@ echo "========================================================================="
 echo ""
 
 
-/scripts/x509.sh
-/scripts/jgroups.sh $JGROUPS_DISCOVERY_PROTOCOL $JGROUPS_DISCOVERY_PROPERTIES
+$JBOSS_HOME/scripts/x509.sh
+$JBOSS_HOME/scripts/jgroups.sh $JGROUPS_DISCOVERY_PROTOCOL $JGROUPS_DISCOVERY_PROPERTIES
 
 ##################
 # Start Keycloak #

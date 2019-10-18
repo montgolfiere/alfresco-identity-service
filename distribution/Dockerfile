@@ -27,5 +27,5 @@ USER 1000
 
 EXPOSE 8080
 
-ENTRYPOINT [ "$JBOSS_HOME/scripts/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/opt/alfresco-identity-service/scripts/docker-entrypoint.sh" ]
 CMD ["-b", "0.0.0.0"]
