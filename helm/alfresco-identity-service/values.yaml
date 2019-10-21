@@ -59,12 +59,15 @@ realm:
           - "/testgroup"
 
 keycloak:
-  image:
-    repository: quay.io/alfresco/alfresco-identity-service
-    tag: 1.2-jk
   rbac:
     create: false
   keycloak:
+    image:
+      repository: quay.io/alfresco/alfresco-identity-service
+      tag: 1.2-jk
+      pullPolicy: Always
+      pullSecrets:
+      - quay-registry-secret
     username: admin
     password: admin
     service:
