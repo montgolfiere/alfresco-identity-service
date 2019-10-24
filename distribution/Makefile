@@ -14,7 +14,7 @@ endif
 build: distribution tag_image push_private
 	
 distribution:
-	./build.sh
+	./build.sh $(KEYCLOAK_DISTRIBUTION_ZIP)
 
 tag_image:
 	@echo "Tag docker image..."

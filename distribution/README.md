@@ -20,7 +20,11 @@
   ```shell  
   $ make distribution
   ```
-
+> Note: you can pass a local distribution zip of keycloak
+  ```shell  
+  $ make distribution KEYCLOAK_DISTRIBUTION_ZIP=my-cutoms/keycloack-7.0.1.zip
+  ```
+  
 * build the image (if you have the distribution zip)
   ```shell  
   # this will create the image that will be stored in quay.io

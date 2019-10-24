@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o errexit
+set -ox errexit
 
 declare -r currentDir="$(dirname "${BASH_SOURCE[0]}")"
 source "${currentDir}/build.properties"
@@ -15,8 +15,13 @@ if [ "$bamboo_helm_repo_location" == "" ]; then
     bamboo_helm_repo_location=https://kubernetes-charts.alfresco.com/incubator
 fi
 
-echo "Downloading Keycloak"
-curl --silent --show-error -O https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/$KEYCLOAK_DISTRO
+# if first parameter is set we are building locally
+if [ ${1} ]; then
+    cp ${1} .
+else
+    echo "Downloading Keycloak"
+    curl --silent --show-error -O https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/$KEYCLOAK_DISTRO
+fi
 
 echo "Unzipping Keycloak"
 unzip -oq $KEYCLOAK_DISTRO
