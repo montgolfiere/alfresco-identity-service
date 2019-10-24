@@ -1,11 +1,16 @@
 include build.properties
 export $(shell sed 's/=.*//' build.properties)
 
+# build a new image based on branch name, else use the value from build.properties
+BRANCH_NAME:=$(shell echo "${bamboo_planRepository_1_branch}" | sed 's/\//_/')
+ifneq ($(BRANCH_NAME), master)
+	IDENTITY_VERSION:=$(shell echo $(BRANCH_NAME) | sed 's/\//-/g' | cut -c1-7)
+endif
+
 IMAGE_NAME							:=alfresco/alfresco-identity-service:$(IDENTITY_VERSION)
 IMAGE_NAME_WITH_BASE_OS				:=$(IMAGE_NAME)-java8-oracle-centos7
 IMAGE_NAME_WITH_BASE_OS_AND_SHA		:=$(IMAGE_NAME_WITH_BASE_OS)-$(shell git rev-parse HEAD | cut -c1-12)
 export IMAGE_NAME_WITH_BASE_OS_AND_SHA
-
 
 ifeq ($(SCAN_FOLDER),)
 	SCAN_FOLDER:=.
@@ -44,3 +49,6 @@ stop:
 
 sh:
 	docker exec -it $$(docker ps -aq --filter name=alfresco-ids) sh
+
+test: 
+	echo $(IDENTITY_VERSION)	
