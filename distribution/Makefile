@@ -1,5 +1,3 @@
-.EXPORT_ALL_VARIABLES:
-
 include build.properties
 export $(shell sed 's/=.*//' build.properties)
 
@@ -17,6 +15,8 @@ export IMAGE_NAME_WITH_BASE_OS_AND_SHA
 ifeq ($(SCAN_FOLDER),)
 	SCAN_FOLDER:=.
 endif
+
+.EXPORT_ALL_VARIABLES:
 
 build: distribution tag_image push_private
 	
