@@ -1,3 +1,5 @@
+.EXPORT_ALL_VARIABLES:
+
 include build.properties
 export $(shell sed 's/=.*//' build.properties)
 
