@@ -4,7 +4,7 @@ export $(shell sed 's/=.*//' build.properties)
 # build a new image based on branch name, else use the value from build.properties
 BRANCH_NAME:=$(shell echo "${bamboo_planRepository_1_branch}" | sed 's/\//_/')
 ifneq ($(BRANCH_NAME), master)
-	IDENTITY_VERSION:=$(shell echo $(BRANCH_NAME) | sed 's/\//-/g' | cut -c1-20)
+	IDENTITY_VERSION:=$(IDENTITY_VERSION)-$(shell echo $(BRANCH_NAME) | sed 's/\//-/g' | cut -c1-20)
 endif
 
 IMAGE_NAME							:=alfresco/alfresco-identity-service:$(IDENTITY_VERSION)
