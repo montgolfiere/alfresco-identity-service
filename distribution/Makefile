@@ -13,7 +13,7 @@ IMAGE_NAME_WITH_BASE_OS_AND_SHA		:=$(IMAGE_NAME_WITH_BASE_OS)-$(shell git rev-pa
 export IMAGE_NAME_WITH_BASE_OS_AND_SHA
 
 ifeq ($(SCAN_FOLDER),)
-	SCAN_FOLDER:=.
+	SCAN_FOLDER:=distribution/alfresco-identity-service-$(IDENTITY_VERSION)
 endif
 
 .EXPORT_ALL_VARIABLES:
