@@ -51,6 +51,12 @@ stop:
 
 sh:
 	docker exec -it $$(docker ps -aq --filter name=alfresco-ids) sh
-
-test: 
-	echo $(IDENTITY_VERSION)	
+	
+scan: ## scan the distribution
+	@[ -f wss-unified-agent.jar ] && echo "wss-unified-agent.jar exist" || curl -LJO https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar
+	@[ -f wss-unified-agent.config ] && echo "wss-unified-agent.config exist" || curl -LJO https://github.com/whitesource/unified-agent-distribution/raw/master/standAlone/wss-unified-agent.config
+	java -jar wss-unified-agent.jar \
+	-d alfresco-identity-service-$(IDENTITY_VERSION) \
+	-product "Alfresco Identity Service" \
+	-project "Identity Service" \
+	-projectVersion "local-amis-$(KEYCLOAK_VERSION)"
